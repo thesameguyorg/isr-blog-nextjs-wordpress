@@ -121,6 +121,7 @@ export async function getPostAndMorePosts(slug, preview, previewData) {
       }
     }
     fragment PostFields on Post {
+      id
       title
       excerpt
       slug
@@ -128,6 +129,7 @@ export async function getPostAndMorePosts(slug, preview, previewData) {
       featuredImage {
         node {
           sourceUrl
+          altText
         }
       }
       author {
@@ -138,6 +140,7 @@ export async function getPostAndMorePosts(slug, preview, previewData) {
       categories {
         edges {
           node {
+            id
             name
           }
         }
@@ -145,6 +148,7 @@ export async function getPostAndMorePosts(slug, preview, previewData) {
       tags {
         edges {
           node {
+            id
             name
           }
         }
