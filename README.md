@@ -72,6 +72,8 @@ Once the site is ready, you'll need to install the [WPGraphQL](https://www.wpgra
 
 - Once the plugin has been added, activate it from either the **Activate Plugin** button displayed after uploading or from the **Plugins** page.
 
+- Ensure that the WPGraphQL plugin is properly configured by verifying that the GraphQL API is available at `yourwordpresssite.com/graphql`, replacing `yourwordpresssite.com` with your WordPress site's URL.
+
 ![WPGraphQL installed](./docs/plugin-installed.png)
 
 #### GraphiQL
@@ -88,6 +90,8 @@ Inside your WordPress admin, go to **Posts** and start adding new posts:
 - Use dummy data for the content
 - Pick an author from your WordPress users
 - Add a **Featured Image**. You can download one from [Unsplash](https://unsplash.com/)
+
+- Make sure to set a relevant title, content, and excerpt for the posts as this data will be used to display on your Next.js frontend.
 - Fill the **Excerpt** field
 
 ![New post](./docs/new-post.png)
@@ -99,6 +103,8 @@ When you’re done, make sure to **Publish** the posts.
 ### Step 3. Set up environment variables
 
 Copy the `.env.local.example` file in this directory to `.env.local` (which will be ignored by Git):
+
+- Acquire the necessary values for the environment variables as per the specifications and intended use of the Next.js frontend with the WordPress backend. This includes the URL to your WordPress GraphQL API endpoint.
 
 ```bash
 cp .env.local.example .env.local
@@ -138,7 +144,7 @@ To add [authentication to WPGraphQL](https://docs.wpgraphql.com/guides/authentic
 
 > Adding the WPGraphQL JWT plugin will disable your GraphQL API until you add a JWT secret ([GitHub issue](https://github.com/wp-graphql/wp-graphql-jwt-authentication/issues/91)).
 
-Once that's done, you'll need to access the WordPress filesystem to add the secret required to validate JWT tokens. We recommend using SFTP — the instructions vary depending on your hosting provider. For example:
+After activating the plugin, follow your hosting provider's instructions to gain access to the WordPress filesystem, where you'll add the JWT secret for authenticating requests:
 
 - [SFTP guide for WP Engine](https://wpengine.com/support/sftp/)
 - [SFTP guide for WordPress.com](https://wordpress.com/support/sftp/)
@@ -170,6 +176,8 @@ mutation Login {
 Copy the `refreshToken` returned by the mutation, then open `.env.local`, and make the following changes:
 
 - Uncomment `WORDPRESS_AUTH_REFRESH_TOKEN` and set it to be the `refreshToken` you just received.
+
+- Be sure to secure your `WORDPRESS_AUTH_REFRESH_TOKEN` as it allows access to preview unpublished content.
 - Uncomment `WORDPRESS_PREVIEW_SECRET` and set it to be any random string (ideally URL friendly).
 
 Your `.env.local` file should look like this:
